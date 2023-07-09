@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roll & Freeze</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Quicksand:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 2.8em;
+      }
+      body {
+        background-color: #0d0a0b;
+        color: #f3eff5;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Quicksand";
+      }
+      .container {
+        background-color: #f3eff5;
+        color: #0d0a0b;
+        min-height: 80%;
+        width: 90%;
+        border-radius: 7px;
+      }
+      .info {
+        text-align: center;
+        padding: 0.3rem;
+      }
+      .name {
+        font-weight: 700;
+        font-size: 1rem;
+      }
+      .about {
+        font-size: 0.6rem;
+      }
+      .box-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        min-height: 300px;
+        min-width: 100%;
+        grid-gap: 0.5em;
+        padding: 1em;
+      }
+      .boxes {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid #0d0a0b;
+        border-radius: 10px;
+        font-size: 0.8rem;
+        max-width: 80%;
+        background-color: #f3eff5;
+      }
+      .boxes:hover {
+        cursor: pointer;
+      }
+      .roll-con {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+      .roll {
+        background-color: #020887;
+        color: #f3eff5;
+        padding: 0.3em 1em;
+        border-radius: 15px;
+      }
+      .roll:hover {
+        cursor: pointer;
+      }
+      .freeze {
+        background-color: #04e762;
+      }
+
+      @media screen and (max-width: 1100px) {
+        html {
+          font-size: 2.5em;
+        }
+        .boxes {
+          max-width: 90%;
+        }
+        .click {
+          padding: 0.2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="win"></div>
+      <div class="info name">Roll & Freeze</div>
+      <div class="info about">
+        Roll until all the dice have the same numbers. Click on them to freeze.
+      </div>
+      <div class="click">Clicks: <span class="value">0</span></div>
+      <div class="box-container">
+        <div class="boxes">C</div>
+        <div class="boxes">L</div>
+        <div class="boxes">I</div>
+        <div class="boxes">C</div>
+        <div class="boxes">K</div>
+        <div class="boxes">S</div>
+        <div class="boxes">T</div>
+        <div class="boxes">A</div>
+        <div class="boxes">R</div>
+        <div class="boxes">T</div>
+      </div>
+      <div class="roll-con">
+        <div class="roll">Start</div>
+      </div>
+    </div>
+
+    <script>
+      let i = -1;
+      const boxes = document.querySelectorAll(".boxes");
+      const win = () => {
+        document.querySelector(".win").style.display = "block";
+      };
+
+      Array.from(boxes).forEach((target) => {
+        target.onclick = () => {
+          if (target.classList.contains("freeze")) {
+            target.classList.remove("freeze");
+          } else {
+            target.classList.add("freeze");
+          }
+        };
+      });
+      document.querySelector(".roll").onclick = () => {
+        document.querySelector(".roll").innerHTML = "Roll";
+        for (let i = 0; i < Array.from(boxes).length; i++) {
+          let b = Array.from(boxes);
+          let x = Math.round(Math.random() * 10);
+          if (b[i].classList.contains("freeze")) {
+            let m;
+          } else {
+            if (i < 0) {
+              i *= -1;
+            }
+            b[i].innerHTML = x;
+          }
+        }
+        let freezed = Array.from(document.querySelectorAll(".freeze"));
+
+        freezed.forEach((e) => {
+            if(e.innerHTML == freezed[0].innerHTML && freezed.length == 10) {
+                for(let i = 0; i < 1; i++) {
+                    if( i <= 1) {
+                        alert("You Win!");
+                    }
+                    i+=1;
+                }
+            }
+        })
+        i += 1;
+        document.querySelector(".value").innerHTML = i;
+      };
+    </script>
+  </body>
+</html>
